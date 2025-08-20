@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المغامر الذكي جواد- لعبة تعليمية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .stage-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .stage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .energy-bar {
+            transition: width 0.5s ease;
+        }
+        
+        .question-card {
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-answer {
+            animation: pulse 0.6s ease;
+            background: linear-gradient(45deg, #10b981, #34d399);
+        }
+        
+        .wrong-answer {
+            animation: shake 0.5s ease;
+            background: linear-gradient(45deg, #ef4444, #f87171);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .trophy {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen text-white">
+    <!-- شاشة البداية -->
+    <div id="startScreen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="text-center max-w-2xl">
+            <div class="text-8xl mb-6">🏰</div>
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+               جواد المغامر الذكي
+            </h1>
+            <p class="text-xl mb-8 text-gray-300">
+                انطلق في مغامرة تعليمية شيقة عبر أربع مراحل مليئة بالتحديات والمعرفة
+            </p>
+            <div class="mb-8">
+                <input type="text" id="playerName" placeholder="أدخل اسمك" 
+                       class="px-6 py-3 rounded-full text-gray-800 text-center text-xl border-2 border-yellow-400 focus:outline-none focus:border-yellow-300">
+            </div>
+            <button onclick="startGame()" 
+                    class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 px-8 py-4 rounded-full text-xl font-bold transform hover:scale-105 transition-all duration-300 shadow-lg">
+                🚀 ابدأ المغامرة
+            </button>
+        </div>
+    </div>
+
+    <!-- شاشة اللعبة الرئيسية -->
+    <div id="gameScreen" class="hidden min-h-screen p-4">
+        <!-- شريط المعلومات العلوي -->
+        <div class="bg-black bg-opacity-30 rounded-2xl p-4 mb-6 backdrop-blur-sm">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="text-2xl">🎮</div>
+                    <div>
+                        <div class="text-lg font-bold" id="playerNameDisplay">المغامر</div>
+                        <div class="text-sm text-gray-300">المرحلة: <span id="currentStageDisplay">1</span></div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="text-center">
+                        <div class="text-sm text-gray-300">النقاط</div>
+                        <div class="text-xl font-bold text-yellow-400" id="scoreDisplay">0</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-300">المفاتيح</div>
+                        <div class="text-xl" id="keysDisplay">🗝️ 0</div>
+                    </div>
+                </div>
+            </div>
+            <!-- شريط الطاقة -->
+            <div class="mt-4">
+                <div class="flex justify-between text-sm mb-1">
+                    <span>الطاقة</span>
+                    <span id="energyText">100/100</span>
+                </div>
+                <div class="bg-gray-700 rounded-full h-3">
+                    <div id="energyBar" class="energy-bar bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خريطة المراحل -->
+        <div id="stageMap" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="stage-card rounded-2xl p-6 text-center cursor-pointer" onclick="enterStage(1)">
+                <div class="text-6xl mb-4">📐</div>
+                <h3 class="text-xl font-bold mb-2">تحدي الرياضيات</h3>
+                <p class="text-sm text-gray-300 mb-4">التحدي الأول</p>
+                <div class="stage-status" id="stage1Status">
+                    <span class="bg-yellow-500 px-3 py-1 rounded-full text-sm">ابدأ هنا</span>
+                </div>
+            </div>
+            
+            <div class="stage-card rounded-2xl p-6 text-center opacity-50" id="stage2Card">
+                <div class="text-6xl mb-4">🧪</div>
+                <h3 class="text-xl font-bold mb-2">تحدي العلوم</h3>
+                <p class="text-sm text-gray-300 mb-4">التحدي الثاني</p>
+                <div class="stage-status" id="stage2Status">
+                    <span class="bg-gray-600 px-3 py-1 rounded-full text-sm">مغلق 🔒</span>
+                </div>
+            </div>
+            
+            <div class="stage-card rounded-2xl p-6 text-center opacity-50" id="stage3Card">
+                <div class="text-6xl mb-4">🌍</div>
+                <h3 class="text-xl font-bold mb-2">تحدي الثقافة</h3>
+                <p class="text-sm text-gray-300 mb-4">التحدي الثالث</p>
+                <div class="stage-status" id="stage3Status">
+                    <span class="bg-gray-600 px-3 py-1 rounded-full text-sm">مغلق 🔒</span>
+                </div>
+            </div>
+            
+            <div class="stage-card rounded-2xl p-6 text-center opacity-50" id="stage4Card">
+                <div class="text-6xl mb-4">⚛️</div>
+                <h3 class="text-xl font-bold mb-2">تحدي الفيزياء</h3>
+                <p class="text-sm text-gray-300 mb-4">التحدي الأخير</p>
+                <div class="stage-status" id="stage4Status">
+                    <span class="bg-gray-600 px-3 py-1 rounded-full text-sm">مغلق 🔒</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- منطقة الأسئلة -->
+        <div id="questionArea" class="hidden">
+            <div class="question-card bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto">
+                <div class="text-center mb-6">
+                    <div class="text-4xl mb-2" id="stageIcon">📐</div>
+                    <h2 class="text-2xl font-bold" id="stageName">تحدي الرياضيات</h2>
+                    <p class="text-gray-300">السؤال <span id="questionNumber">1</span> من 3</p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-6 text-center" id="questionText">ما هو ناتج 5 × 7؟</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="answersContainer">
+                        <!-- الإجابات ستُضاف هنا ديناميكياً -->
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button onclick="goBackToMap()" 
+                            class="bg-gray-600 hover:bg-gray-700 px-6 py-3 rounded-full transition-all duration-300">
+                        🔙 العودة للخريطة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة النصر -->
+    <div id="victoryScreen" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="text-center max-w-2xl">
+            <div class="trophy text-8xl mb-6">🏆</div>
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                مبروك! أنت بطل الصف التاسع! 🎖️
+            </h1>
+            <p class="text-xl mb-6 text-gray-300">
+                لقد أكملت جميع المراحل بنجاح وأثبتت أنك مغامر ذكي حقيقي!
+            </p>
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 mb-8">
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-yellow-400" id="finalScore">0</div>
+                        <div class="text-sm text-gray-300">النقاط النهائية</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-blue-400" id="finalKeys">0</div>
+                        <div class="text-sm text-gray-300">المفاتيح المجمعة</div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="restartGame()" 
+                    class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 px-8 py-4 rounded-full text-xl font-bold transform hover:scale-105 transition-all duration-300 shadow-lg">
+                🔄 العب مرة أخرى
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // متغيرات اللعبة
+        let gameState = {
+            playerName: '',
+            currentStage: 1,
+            score: 0,
+            keys: 0,
+            energy: 100,
+            stagesCompleted: [false, false, false, false],
+            currentQuestionIndex: 0
+        };
+
+        // بنك الأسئلة لكل مرحلة
+        const stageQuestions = {
+            1: [ // تحدي الرياضيات - الصف التاسع سوريا
+                {
+                    question: "إذا كان x² - 5x + 6 = 0، فما قيمة x؟",
+                    answers: ["x = 2 أو x = 3", "x = 1 أو x = 6", "x = -2 أو x = -3", "x = 0 أو x = 5"],
+                    correct: 0,
+                    subject: "رياضيات"
+                },
+                {
+                    question: "ما هو ناتج تبسيط العبارة: 3(2x + 4) - 2(x - 1)؟",
+                    answers: ["4x + 14", "6x + 10", "4x + 10", "6x + 14"],
+                    correct: 0,
+                    subject: "رياضيات"
+                },
+                {
+                    question: "في المثلث القائم، إذا كان طول الضلعين القائمين 3 سم و 4 سم، فما طول الوتر؟",
+                    answers: ["5 سم", "7 سم", "6 سم", "8 سم"],
+                    correct: 0,
+                    subject: "رياضيات"
+                }
+            ],
+            2: [ // تحدي العلوم - الصف التاسع سوريا
+                {
+                    question: "ما هو الرقم الهيدروجيني (pH) للماء النقي؟",
+                    answers: ["7", "0", "14", "1"],
+                    correct: 0,
+                    subject: "علوم"
+                },
+                {
+                    question: "أي من العضيات التالية مسؤولة عن التنفس الخلوي؟",
+                    answers: ["النواة", "الميتوكوندريا", "الريبوسومات", "الشبكة الإندوبلازمية"],
+                    correct: 1,
+                    subject: "علوم"
+                },
+                {
+                    question: "ما هو العنصر الأكثر وفرة في الغلاف الجوي للأرض؟",
+                    answers: ["الأكسجين", "النيتروجين", "ثاني أكسيد الكربون", "الأرغون"],
+                    correct: 1,
+                    subject: "علوم"
+                }
+            ],
+            3: [ // تحدي الثقافة - الصف التاسع سوريا
+                {
+                    question: "من هو مؤسس الدولة الأموية في دمشق؟",
+                    answers: ["معاوية بن أبي سفيان", "عبد الملك بن مروان", "الوليد بن عبد الملك", "هشام بن عبد الملك"],
+                    correct: 0,
+                    subject: "تاريخ"
+                },
+                {
+                    question: "ما هي عاصمة سوريا القديمة التي تُعرف بـ 'لؤلؤة الشرق'؟",
+                    answers: ["حلب", "دمشق", "حمص", "اللاذقية"],
+                    correct: 1,
+                    subject: "جغرافيا"
+                },
+                {
+                    question: "من هو الشاعر السوري الذي لُقب بـ 'شاعر القطرين'؟",
+                    answers: ["نزار قباني", "خليل مطران", "أدونيس", "محمود درويش"],
+                    correct: 1,
+                    subject: "أدب"
+                }
+            ],
+            4: [ // تحدي الفيزياء - الصف التاسع سوريا
+                {
+                    question: "ما هي وحدة قياس القوة في النظام الدولي؟",
+                    answers: ["جول", "نيوتن", "واط", "باسكال"],
+                    correct: 1,
+                    subject: "فيزياء"
+                },
+                {
+                    question: "إذا كانت كتلة جسم 5 كغ وتسارعه 2 م/ث²، فما مقدار القوة المؤثرة عليه؟",
+                    answers: ["10 نيوتن", "7 نيوتن", "3 نيوتن", "2.5 نيوتن"],
+                    correct: 0,
+                    subject: "فيزياء"
+                },
+                {
+                    question: "ما هي سرعة الضوء في الفراغ تقريباً؟",
+                    answers: ["300,000 كم/ث", "3,000,000 كم/ث", "30,000 كم/ث", "300,000,000 م/ث"],
+                    correct: 0,
+                    subject: "فيزياء"
+                }
+            ]
+        };
+
+        const stageInfo = {
+            1: { name: "تحدي الرياضيات", icon: "📐" },
+            2: { name: "تحدي العلوم", icon: "🧪" },
+            3: { name: "تحدي الثقافة", icon: "🌍" },
+            4: { name: "تحدي الفيزياء", icon: "⚛️" }
+        };
+
+        function startGame() {
+            const nameInput = document.getElementById('playerName');
+            if (nameInput.value.trim() === '') {
+                alert('يرجى إدخال اسمك أولاً!');
+                return;
+            }
+            
+            gameState.playerName = nameInput.value.trim();
+            document.getElementById('playerNameDisplay').textContent = gameState.playerName;
+            
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('scoreDisplay').textContent = gameState.score;
+            document.getElementById('keysDisplay').textContent = `🗝️ ${gameState.keys}`;
+            document.getElementById('energyText').textContent = `${gameState.energy}/100`;
+            document.getElementById('energyBar').style.width = `${gameState.energy}%`;
+            document.getElementById('currentStageDisplay').textContent = gameState.currentStage;
+            
+            // تحديث حالة المراحل
+            for (let i = 1; i <= 4; i++) {
+                const stageCard = document.getElementById(`stage${i}Card`);
+                const stageStatus = document.getElementById(`stage${i}Status`);
+                
+                if (gameState.stagesCompleted[i-1]) {
+                    stageCard.classList.remove('opacity-50');
+                    stageStatus.innerHTML = '<span class="bg-green-500 px-3 py-1 rounded-full text-sm">مكتملة ✅</span>';
+                } else if (i === gameState.currentStage) {
+                    stageCard.classList.remove('opacity-50');
+                    stageCard.style.cursor = 'pointer';
+                    stageCard.onclick = () => enterStage(i);
+                    stageStatus.innerHTML = '<span class="bg-yellow-500 px-3 py-1 rounded-full text-sm">متاحة الآن</span>';
+                } else if (i > gameState.currentStage) {
+                    stageCard.classList.add('opacity-50');
+                    stageCard.style.cursor = 'not-allowed';
+                    stageCard.onclick = null;
+                    stageStatus.innerHTML = '<span class="bg-gray-600 px-3 py-1 rounded-full text-sm">مغلقة 🔒</span>';
+                }
+            }
+        }
+
+        function enterStage(stageNumber) {
+            if (stageNumber > gameState.currentStage) {
+                alert('يجب إكمال المراحل السابقة أولاً!');
+                return;
+            }
+            
+            if (gameState.stagesCompleted[stageNumber - 1]) {
+                alert('لقد أكملت هذه المرحلة بالفعل!');
+                return;
+            }
+            
+            gameState.currentQuestionIndex = 0;
+            showQuestion(stageNumber);
+        }
+
+        function showQuestion(stageNumber) {
+            document.getElementById('stageMap').classList.add('hidden');
+            document.getElementById('questionArea').classList.remove('hidden');
+            
+            const stageData = stageInfo[stageNumber];
+            document.getElementById('stageIcon').textContent = stageData.icon;
+            document.getElementById('stageName').textContent = stageData.name;
+            document.getElementById('questionNumber').textContent = gameState.currentQuestionIndex + 1;
+            
+            const question = stageQuestions[stageNumber][gameState.currentQuestionIndex];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const answersContainer = document.getElementById('answersContainer');
+            answersContainer.innerHTML = '';
+            
+            question.answers.forEach((answer, index) => {
+                const button = document.createElement('button');
+                button.className = 'bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-105';
+                button.textContent = answer;
+                button.onclick = () => checkAnswer(stageNumber, index);
+                answersContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(stageNumber, selectedIndex) {
+            const question = stageQuestions[stageNumber][gameState.currentQuestionIndex];
+            const buttons = document.getElementById('answersContainer').children;
+            
+            if (selectedIndex === question.correct) {
+                // إجابة صحيحة
+                buttons[selectedIndex].classList.add('correct-answer');
+                gameState.score += 10;
+                gameState.keys += 1;
+                
+                setTimeout(() => {
+                    gameState.currentQuestionIndex++;
+                    
+                    if (gameState.currentQuestionIndex >= stageQuestions[stageNumber].length) {
+                        // إكمال المرحلة
+                        completeStage(stageNumber);
+                    } else {
+                        // السؤال التالي
+                        showQuestion(stageNumber);
+                    }
+                }, 1500);
+            } else {
+                // إجابة خاطئة
+                buttons[selectedIndex].classList.add('wrong-answer');
+                buttons[question.correct].classList.add('correct-answer');
+                gameState.energy = Math.max(0, gameState.energy - 20);
+                
+                setTimeout(() => {
+                    if (gameState.energy <= 0) {
+                        alert('نفدت طاقتك! ستعود للخريطة لتستعيد قوتك.');
+                        gameState.energy = 50; // استعادة جزئية للطاقة
+                        goBackToMap();
+                    } else {
+                        // إعادة المحاولة
+                        showQuestion(stageNumber);
+                    }
+                }, 2000);
+            }
+            
+            updateUI();
+        }
+
+        function completeStage(stageNumber) {
+            gameState.stagesCompleted[stageNumber - 1] = true;
+            gameState.score += 50; // مكافأة إكمال المرحلة
+            gameState.energy = Math.min(100, gameState.energy + 30); // استعادة الطاقة
+            
+            if (stageNumber < 4) {
+                gameState.currentStage = stageNumber + 1;
+                alert(`🎉 مبروك! لقد أكملت ${stageInfo[stageNumber].name} بنجاح!\nانتقل للمرحلة التالية: ${stageInfo[stageNumber + 1].name}`);
+            } else {
+                // إكمال جميع المراحل
+                showVictoryScreen();
+                return;
+            }
+            
+            goBackToMap();
+        }
+
+        function goBackToMap() {
+            document.getElementById('questionArea').classList.add('hidden');
+            document.getElementById('stageMap').classList.remove('hidden');
+            updateUI();
+        }
+
+        function showVictoryScreen() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('victoryScreen').classList.remove('hidden');
+            document.getElementById('finalScore').textContent = gameState.score;
+            document.getElementById('finalKeys').textContent = gameState.keys;
+        }
+
+        function restartGame() {
+            gameState = {
+                playerName: '',
+                currentStage: 1,
+                score: 0,
+                keys: 0,
+                energy: 100,
+                stagesCompleted: [false, false, false, false],
+                currentQuestionIndex: 0
+            };
+            
+            document.getElementById('victoryScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+            document.getElementById('playerName').value = '';
+        }
+
+        // تحديث الواجهة عند تحميل الصفحة
+        updateUI();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9721e2ac335c522e',t:'MTc1NTY5Mjg1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
