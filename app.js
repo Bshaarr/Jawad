@@ -49,6 +49,9 @@
 
   function normalizeText(s) { return (s || '').toString().toLowerCase(); }
 
+  // تتبع المحافظة المعروضة
+  let currentProvinceId = null;
+
   function renderProvinces(list) {
     if (!provincesGrid) return;
     provincesGrid.innerHTML = '';
@@ -85,9 +88,9 @@
       meta.appendChild(chips);
       card.appendChild(meta);
 
-      function open() { openModal(p); }
-      card.addEventListener('click', open);
-      card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      function onToggle() { toggleProvinceDetails(p); }
+      card.addEventListener('click', onToggle);
+      card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle(); } });
 
       provincesGrid.appendChild(card);
     });
@@ -165,12 +168,14 @@
 
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    currentProvinceId = p.id;
   }
 
   function closeModal() {
     if (!modal) return;
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    currentProvinceId = null;
   }
 
   if (modal) {
@@ -179,6 +184,17 @@
     if (btn) btn.addEventListener('click', closeModal);
     window.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
   }
+
+  function toggleProvinceDetails(p) {
+    if (!modal) return;
+    const isSameOpen = currentProvinceId && currentProvinceId === p.id && modal.getAttribute('aria-hidden') === 'false';
+    if (isSameOpen) {
+      closeModal();
+    } else {
+      openModal(p);
+    }
+  }
+
   // لوحات منبثقة للأقسام
   const panels = {
     provinces: document.getElementById('provinces'),
@@ -193,15 +209,18 @@
       el.classList.toggle('is-open', isTarget);
       el.setAttribute('aria-hidden', String(!isTarget));
       if (isTarget) {
-        el.scrollTop = 0;
+        // إعادة ضبط موضع اللوحة عند الفتح
+        try { el.scrollTop = 0; } catch (_) {}
         // عند فتح لوحة المحافظات، أعِد ضبط البحث واعرض كل المحافظات
         if (k === 'provinces') {
           if (searchInput) { searchInput.value = ''; }
           if (Array.isArray(window.provincesData)) { renderProvinces(window.provincesData); }
           // اجعلها صفحة كاملة إن لزم
           el.classList.add('full-page');
-          // مرّر إلى بداية اللوحة مع تعويض ارتفاع الرأس
-          scrollSectionIntoView(el);
+          // مرّر إلى بداية اللوحة مع تعويض ارتفاع الرأس بعد إعادة الرسم
+          try {
+            requestAnimationFrame(function () { scrollSectionIntoView(el); });
+          } catch (_) { scrollSectionIntoView(el); }
         }
       }
     });
@@ -262,4 +281,3 @@
     }
   });
 })();
-
