@@ -176,6 +176,11 @@
       el.setAttribute('aria-hidden', String(!isTarget));
       if (isTarget) {
         el.scrollTop = 0;
+        // عند فتح لوحة المحافظات، أعِد ضبط البحث واعرض كل المحافظات
+        if (k === 'provinces') {
+          if (searchInput) { searchInput.value = ''; }
+          if (Array.isArray(window.provincesData)) { renderProvinces(window.provincesData); }
+        }
       }
     });
     document.body.style.overflow = 'hidden';

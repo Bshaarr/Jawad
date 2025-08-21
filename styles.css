@@ -119,6 +119,8 @@ section { padding: 54px 0; }
   transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease;
   opacity: 0;
   z-index: 40;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 .panel.is-open {
   transform: translateY(0);
@@ -193,7 +195,7 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .link-card:hover { transform: translateY(-2px); background: #123328; border-color: rgba(18,167,119,.4); }
 
 /* نافذة منبثقة */
-.modal { position: fixed; inset: 0; display: none; }
+.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
 .modal[aria-hidden="false"] { display: block; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(2px); }
 .modal-dialog {
