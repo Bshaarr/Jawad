@@ -22,6 +22,8 @@
   if (enterButton) {
     enterButton.addEventListener('click', () => {
       openPanel('provinces');
+      // ثبت الرابط أعلى الصفحة
+      try { history.replaceState(null, '', '#provinces'); } catch (_) {}
     });
   }
 

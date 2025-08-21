@@ -220,6 +220,10 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .modal-header { padding: 8px 4px 10px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 14px; }
 .modal-title { margin: 0; font-size: 24px; font-weight: 800; }
 .modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.modal-footer { margin-top: 16px; display: flex; justify-content: flex-end; }
+.btn { padding: 10px 14px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
+.btn-outline { background: rgba(18,167,119,.14); color: var(--color-text); border: 1px solid rgba(18,167,119,.35); }
+.btn-outline:hover { background: rgba(18,167,119,.22); }
 .modal-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .modal-gallery img { border-radius: 12px; width: 100%; height: 140px; object-fit: cover; }
 .modal-sections { display: grid; gap: 12px; align-content: start; }
