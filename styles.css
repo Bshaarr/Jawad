@@ -124,7 +124,7 @@ section { padding: 54px 0; }
   transform: translateY(0);
   opacity: 1;
 }
-.panel .container { padding-top: 24px; padding-bottom: 28px; }
+.panel .container { position: relative; padding-top: 24px; padding-bottom: 28px; }
 .panel-close-btn {
   position: absolute;
   inset-inline-end: 18px;
