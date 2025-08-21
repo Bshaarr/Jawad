@@ -72,7 +72,7 @@ a:hover { color: var(--color-text); }
 .brand { display: inline-flex; align-items: center; gap: 12px; }
 .brand-logo { height: 40px; filter: drop-shadow(0 4px 10px rgba(0,0,0,.35)); }
 .brand-name { font-weight: 800; font-size: 20px; letter-spacing: .3px; }
-.main-nav { display: flex; gap: 18px; }
+.main-nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
 .main-nav a {
   padding: 10px 14px; border-radius: 999px;
   transition: background .2s ease, color .2s ease;
@@ -182,21 +182,21 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .link-card:hover { transform: translateY(-2px); background: #123328; border-color: rgba(18,167,119,.4); }
 
 /* نافذة منبثقة */
-.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
+.modal { position: fixed; inset: 0; display: none; z-index: 1000; height: 100svh; }
 .modal[aria-hidden="false"] { display: block; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(2px); }
 .modal-dialog {
-  position: absolute; inset: 0; margin: 0;
-  display: grid; grid-template-rows: auto 1fr; /* الهيدر + المحتوى */
+  position: absolute; inset: 0; margin: 0; height: 100%;
+  display: grid; grid-template-rows: auto 1fr;
   background: linear-gradient(180deg, rgba(15,34,28,1), rgba(15,34,28,.98));
   border: none;
 }
 .modal-close { position: absolute; top: 8px; inset-inline-end: 12px; background: transparent; color: var(--color-text); border: none; font-size: 28px; cursor: pointer; }
-.modal-content { display: grid; grid-template-rows: auto 1fr auto; padding: 12px 12px 14px; min-height: 0; }
+.modal-content { display: grid; grid-template-rows: auto 1fr auto; padding: 12px 12px 14px; min-height: 0; height: 100%; }
 .modal-header { padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 6px; display:flex; align-items:center; gap:10px; }
 .modal-title { margin: 0; font-size: 24px; font-weight: 800; color: var(--color-accent); text-shadow: 0 2px 10px rgba(194,163,91,.15); }
-.modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; overflow: auto; padding: 8px 6px 28px; min-height: 0; }
-.modal-footer { margin-top: 6px; display: flex; justify-content: flex-end; }
+.modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; overflow: auto; padding: 8px 6px calc(28px + env(safe-area-inset-bottom, 0px)); min-height: 0; }
+.modal-footer { position: sticky; bottom: 0; display: flex; justify-content: flex-end; gap: 8px; padding-top: 8px; background: linear-gradient(180deg, rgba(15,34,28,.6), rgba(15,34,28,1)); border-top: 1px solid rgba(255,255,255,.06); }
 .btn { padding: 10px 14px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
 .btn-outline { background: rgba(18,167,119,.14); color: var(--color-text); border: 1px solid rgba(18,167,119,.35); }
 .btn-outline:hover { background: rgba(18,167,119,.22); }
@@ -265,8 +265,11 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
   .modal-body { grid-template-columns: 1fr; }
   .modal-gallery { grid-template-columns: repeat(3, 1fr); }
 }
+@media (max-width: 900px) {
+  .main-nav { overflow-x: auto; white-space: nowrap; padding-block: 8px; gap: 10px; }
+  .main-nav a { flex: 0 0 auto; }
+}
 @media (max-width: 720px) {
-  .main-nav { display: none; }
-  .modal-dialog { margin: 20px auto; }
   .hero { min-height: 68vh; }
+  .modal-body { grid-template-columns: 1fr; }
 }
