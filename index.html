@@ -19,6 +19,9 @@
         <nav class="main-nav" aria-label="روابط الموقع">
           <a href="#home">الرئيسية</a>
           <a href="#provinces">المحافظات</a>
+          <a href="#universities">الجامعات</a>
+          <a href="#ministries">الوزارات</a>
+          <a href="#mosques">المساجد</a>
           <a href="#resources">روابط</a>
         </nav>
       </div>
@@ -61,6 +64,33 @@
       </div>
     </section>
 
+    <section id="universities" class="universities-section" aria-labelledby="universitiesTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="universitiesTitle">جامعات في سوريا</h2>
+        </div>
+        <div id="universitiesGrid" class="info-grid" aria-label="قائمة الجامعات"></div>
+      </div>
+    </section>
+
+    <section id="ministries" class="ministries-section" aria-labelledby="ministriesTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="ministriesTitle">وزارات سوريا</h2>
+        </div>
+        <div id="ministriesGrid" class="info-grid" aria-label="قائمة الوزارات"></div>
+      </div>
+    </section>
+
+    <section id="mosques" class="mosques-section" aria-labelledby="mosquesTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="mosquesTitle">مساجد بارزة في سوريا</h2>
+        </div>
+        <div id="mosquesGrid" class="info-grid" aria-label="قائمة المساجد"></div>
+      </div>
+    </section>
+
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© <span id="year"></span> هنا سوريا. جميع الحقوق محفوظة.</p>
@@ -68,7 +98,7 @@
       </div>
     </footer>
 
-    <a class="dev-mark" href="#" aria-label="مطوّر الموقع">م. بشار عنيزان</a>
+    <a class="dev-mark" href="https://www.facebook.com/share/1ApRAudojf/" target="_blank" rel="noopener" aria-label="مطوّر الموقع">م. بشار عنيزان</a>
     <!-- نافذة معلومات المحافظة -->
     <div id="provinceModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
       <div class="modal-backdrop" data-close></div>
@@ -116,6 +146,7 @@
     </div>
 
     <script src="./data/provinces.js?v=2"></script>
+    <script src="./data/institutions.js?v=1"></script>
     <script src="./app.js?v=2"></script>
     <div id="toasts" class="toasts" aria-live="polite" aria-atomic="true"></div>
   </body>

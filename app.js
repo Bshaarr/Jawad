@@ -142,6 +142,8 @@
   const modalCuisine = document.getElementById('modalCuisine');
   const modalAttractions = document.getElementById('modalAttractions');
   const modalLinks = document.getElementById('modalLinks');
+  // أقسام محسنة
+  let extraSectionsContainer;
 
   function openModal(p) {
     if (!modal) return;
@@ -168,6 +170,35 @@
     modalLinks.innerHTML = '';
     (p.links || []).forEach(function (link) {
       const a = document.createElement('a'); a.className = 'link-card'; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.href = link.url; a.textContent = link.label; modalLinks.appendChild(a);
+    });
+
+    // أقسام إضافية اختيارية: التاريخ، الجغرافيا، المهرجانات، التعليم، الصحة
+    if (!extraSectionsContainer) {
+      extraSectionsContainer = document.createElement('div');
+      extraSectionsContainer.className = 'modal-sections';
+      modal.querySelector('.modal-body').appendChild(extraSectionsContainer);
+    }
+    extraSectionsContainer.innerHTML = '';
+    const extra = [
+      { key: 'history', title: 'التاريخ' },
+      { key: 'geography', title: 'الجغرافيا' },
+      { key: 'festivals', title: 'مهرجانات وفعاليات', isList: true },
+      { key: 'education', title: 'التعليم' },
+      { key: 'health', title: 'الصحة والخدمات' }
+    ];
+    extra.forEach(function (sec) {
+      if (!p[sec.key]) return;
+      const card = document.createElement('section');
+      card.className = 'gold-card';
+      const h = document.createElement('h4'); h.textContent = sec.title; card.appendChild(h);
+      if (sec.isList && Array.isArray(p[sec.key])) {
+        const ul = document.createElement('ul'); ul.className = 'gold-list';
+        p[sec.key].forEach(function (item) { const li = document.createElement('li'); li.textContent = item; ul.appendChild(li); });
+        card.appendChild(ul);
+      } else {
+        const pEl = document.createElement('p'); pEl.textContent = p[sec.key]; card.appendChild(pEl);
+      }
+      extraSectionsContainer.appendChild(card);
     });
 
     modal.setAttribute('aria-hidden', 'false');
@@ -260,4 +291,30 @@
 
   // أظهر إشعارًا بعد قليل من الدخول
   setTimeout(showQuizToast, 3000);
+  // أقسام الجامعات/الوزارات/المساجد
+  const universitiesGrid = document.getElementById('universitiesGrid');
+  const ministriesGrid = document.getElementById('ministriesGrid');
+  const mosquesGrid = document.getElementById('mosquesGrid');
+
+  function renderInfoGrid(targetEl, items, type) {
+    if (!targetEl || !Array.isArray(items)) return;
+    targetEl.innerHTML = '';
+    items.forEach(function (it) {
+      const card = document.createElement('article');
+      card.className = 'info-card';
+      const title = document.createElement('h3'); title.textContent = it.name; card.appendChild(title);
+      const meta = document.createElement('div'); meta.className = 'meta'; meta.textContent = [it.city, it.note].filter(Boolean).join(' • '); card.appendChild(meta);
+      const actions = document.createElement('div'); actions.className = 'actions';
+      if (it.site) { const a = document.createElement('a'); a.href = it.site; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'الموقع'; actions.appendChild(a); }
+      if (it.map) { const a = document.createElement('a'); a.href = it.map; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'الخريطة'; actions.appendChild(a); }
+      card.appendChild(actions);
+      targetEl.appendChild(card);
+    });
+  }
+
+  if (window.institutionsData) {
+    renderInfoGrid(universitiesGrid, window.institutionsData.universities, 'univ');
+    renderInfoGrid(ministriesGrid, window.institutionsData.ministries, 'min');
+    renderInfoGrid(mosquesGrid, window.institutionsData.mosques, 'mosque');
+  }
 })();
