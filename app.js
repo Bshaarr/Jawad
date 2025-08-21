@@ -180,10 +180,14 @@
         if (k === 'provinces') {
           if (searchInput) { searchInput.value = ''; }
           if (Array.isArray(window.provincesData)) { renderProvinces(window.provincesData); }
+          // اجعلها صفحة كاملة إن لزم
+          el.classList.add('full-page');
+          // تأكد من ظهور اللوحة للمستخدم فورًا
+          try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
         }
       }
     });
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = '';
   }
 
   function closePanels() {
@@ -191,6 +195,7 @@
       const el = panels[k];
       if (!el) return;
       el.classList.remove('is-open');
+      el.classList.remove('full-page');
       el.setAttribute('aria-hidden', 'true');
     });
     document.body.style.overflow = '';
