@@ -161,7 +161,6 @@
     if (btn) btn.addEventListener('click', closeModal);
     window.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
   }
-
   // لوحات منبثقة للأقسام
   const panels = {
     provinces: document.getElementById('provinces'),
