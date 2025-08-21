@@ -182,24 +182,45 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 /* نافذة منبثقة */
 .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
 .modal[aria-hidden="false"] { display: block; }
-.modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(2px); }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(2px); }
 .modal-dialog {
-  position: relative;
-  margin: 60px auto; max-width: 980px; width: calc(100% - 24px);
+  position: absolute; inset: 0; margin: 0;
+  display: grid; grid-template-rows: auto 1fr auto;
   background: linear-gradient(180deg, rgba(15,34,28,1), rgba(15,34,28,.98));
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-2);
+  border: none;
 }
 .modal-close { position: absolute; top: 8px; inset-inline-end: 12px; background: transparent; color: var(--color-text); border: none; font-size: 28px; cursor: pointer; }
 .modal-content { padding: 18px 18px 26px; }
-.modal-header { padding: 8px 4px 10px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 14px; }
+.modal-header { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 10px; display:flex; align-items:center; gap:10px; }
 .modal-title { margin: 0; font-size: 24px; font-weight: 800; }
-.modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; overflow: auto; padding-bottom: 8px; }
 .modal-footer { margin-top: 16px; display: flex; justify-content: flex-end; }
 .btn { padding: 10px 14px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
 .btn-outline { background: rgba(18,167,119,.14); color: var(--color-text); border: 1px solid rgba(18,167,119,.35); }
 .btn-outline:hover { background: rgba(18,167,119,.22); }
+
+/* زر رجوع أنيق */
+.btn-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(18,167,119,.18);
+  color: #bfe8d7; border: 1px solid rgba(18,167,119,.4);
+  padding: 10px 14px; border-radius: 999px; font-weight: 800; cursor: pointer;
+}
+.btn-back:hover { background: rgba(18,167,119,.26); }
+
+/* إشعارات (توست) بأسئلة اختيار من متعدد */
+.toasts { position: fixed; inset-inline-end: 16px; inset-block-start: 80px; display: grid; gap: 10px; z-index: 1100; }
+.toast {
+  background: #103328; color: var(--color-text); border: 1px solid rgba(18,167,119,.35);
+  border-radius: 12px; padding: 12px; min-width: 280px; box-shadow: 0 12px 28px rgba(0,0,0,.4);
+}
+.toast h5 { margin: 0 0 8px; font-size: 15px; }
+.toast p { margin: 0 0 10px; color: var(--color-text-muted); font-size: 13px; }
+.choices { display: grid; gap: 6px; }
+.choices button { text-align: start; background: rgba(255,255,255,.04); color: var(--color-text); border: 1px solid rgba(255,255,255,.08); padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+.choices button:hover { background: rgba(18,167,119,.16); border-color: rgba(18,167,119,.35); }
+.choice-correct { border-color: #2bb673 !important; background: rgba(43,182,115,.18) !important; }
+.choice-wrong { border-color: #b84d4d !important; background: rgba(184,77,77,.18) !important; }
 .modal-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .modal-gallery img { border-radius: 12px; width: 100%; height: 140px; object-fit: cover; }
 .modal-sections { display: grid; gap: 12px; align-content: start; }

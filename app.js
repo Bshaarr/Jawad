@@ -198,4 +198,66 @@
       openModal(p);
     }
   }
+
+  // إشعارات (أسئلة اختيار من متعدد)
+  const toastsEl = document.getElementById('toasts');
+  const quizBank = [
+    {
+      id: 'q1',
+      title: 'سؤال سريع',
+      text: 'ما العاصمة السورية؟',
+      choices: [
+        { label: 'حلب', correct: false },
+        { label: 'دمشق', correct: true },
+        { label: 'حمص', correct: false }
+      ]
+    },
+    {
+      id: 'q2',
+      title: 'معلومة ثقافية',
+      text: 'على أي نهر تقع حماة؟',
+      choices: [
+        { label: 'الفرات', correct: false },
+        { label: 'العاصي', correct: true },
+        { label: 'الخابور', correct: false }
+      ]
+    }
+  ];
+
+  function showQuizToast() {
+    if (!toastsEl || quizBank.length === 0) return;
+    const q = quizBank[Math.floor(Math.random() * quizBank.length)];
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <h5>${q.title}</h5>
+      <p>${q.text}</p>
+      <div class="choices">
+        ${q.choices.map((c, i) => `<button data-i="${i}">${c.label}</button>`).join('')}
+      </div>
+    `;
+    toastsEl.appendChild(toast);
+    const btns = toast.querySelectorAll('button');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const idx = parseInt(btn.getAttribute('data-i'), 10);
+        const pick = q.choices[idx];
+        btns.forEach(b => b.disabled = true);
+        if (pick.correct) {
+          btn.classList.add('choice-correct');
+          setTimeout(() => toast.remove(), 1200);
+        } else {
+          btn.classList.add('choice-wrong');
+          const correctIdx = q.choices.findIndex(c => c.correct);
+          if (correctIdx >= 0) btns[correctIdx].classList.add('choice-correct');
+          setTimeout(() => toast.remove(), 1600);
+        }
+      });
+    });
+    // إزالة تلقائية بعد 10 ثوانٍ إن لم يُجَب
+    setTimeout(() => { if (document.body.contains(toast)) toast.remove(); }, 10000);
+  }
+
+  // أظهر إشعارًا بعد قليل من الدخول
+  setTimeout(showQuizToast, 3000);
 })();
