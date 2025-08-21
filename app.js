@@ -301,8 +301,8 @@
     setTimeout(() => { if (document.body.contains(toast)) toast.remove(); }, 10000);
   }
 
-  // أظهر إشعارًا بعد قليل من الدخول
-  setTimeout(showQuizToast, 3000);
+  // أظهر إشعارًا دوريًا كل 4 ثوانٍ
+  setInterval(showQuizToast, 4000);
   // أقسام الجامعات/الوزارات/المساجد
   const universitiesGrid = document.getElementById('universitiesGrid');
   const ministriesGrid = document.getElementById('ministriesGrid');
