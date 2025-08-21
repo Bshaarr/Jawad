@@ -1,6 +1,20 @@
 /* هنا سوريا - تهيئة تفاعلية */
 (function () {
   'use strict';
+  function getHeaderOffset() {
+    var header = document.querySelector('.site-header');
+    return header ? header.offsetHeight + 8 : 0; // هامش صغير بعد الرأس
+  }
+
+  function scrollSectionIntoView(sectionEl) {
+    if (!sectionEl) return;
+    try {
+      var y = sectionEl.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+      window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
+    } catch (_) {
+      sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -22,8 +36,10 @@
   if (enterButton) {
     enterButton.addEventListener('click', () => {
       openPanel('provinces');
-      // ثبت الرابط أعلى الصفحة
+      // ثبّت الرابط ومرّر إلى أعلى لوحة المحافظات
       try { history.replaceState(null, '', '#provinces'); } catch (_) {}
+      var provincesEl = document.getElementById('provinces');
+      scrollSectionIntoView(provincesEl);
     });
   }
 
@@ -184,8 +200,8 @@
           if (Array.isArray(window.provincesData)) { renderProvinces(window.provincesData); }
           // اجعلها صفحة كاملة إن لزم
           el.classList.add('full-page');
-          // تأكد من ظهور اللوحة للمستخدم فورًا
-          try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
+          // مرّر إلى بداية اللوحة مع تعويض ارتفاع الرأس
+          scrollSectionIntoView(el);
         }
       }
     });
@@ -220,8 +236,18 @@
   const navHomeBtn = document.getElementById('navHomeBtn');
   const navProvincesBtn = document.getElementById('navProvincesBtn');
   const navResourcesBtn = document.getElementById('navResourcesBtn');
-  if (navHomeBtn) navHomeBtn.addEventListener('click', closePanels);
-  if (navProvincesBtn) navProvincesBtn.addEventListener('click', function () { togglePanel('provinces'); });
+  if (navHomeBtn) navHomeBtn.addEventListener('click', function () {
+    closePanels();
+    try { history.replaceState(null, '', '#home'); } catch (_) {}
+    var homeEl = document.getElementById('home');
+    scrollSectionIntoView(homeEl);
+  });
+  if (navProvincesBtn) navProvincesBtn.addEventListener('click', function () {
+    openPanel('provinces');
+    try { history.replaceState(null, '', '#provinces'); } catch (_) {}
+    var provincesEl = document.getElementById('provinces');
+    scrollSectionIntoView(provincesEl);
+  });
   if (navResourcesBtn) navResourcesBtn.addEventListener('click', function () { togglePanel('resources'); });
 
   // أزرار إغلاق اللوحات
