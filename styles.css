@@ -159,11 +159,14 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
   border-radius: var(--radius);
   background: var(--color-surface-2);
   box-shadow: var(--shadow-1);
+  border: 1px solid rgba(255,255,255,.06);
   cursor: pointer;
   min-height: 220px;
   transition: transform .2s ease, box-shadow .2s ease;
 }
-.province-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
+.province-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: rgba(194,163,91,.45); }
+.province-card::before { content: ""; position: absolute; inset: -2px; border-radius: inherit; pointer-events: none; background: linear-gradient(120deg, rgba(194,163,91,.18), rgba(255,255,255,0), rgba(194,163,91,.18)); opacity: 0; transition: opacity .2s ease; }
+.province-card:hover::before { opacity: 1; }
 .province-media { position: absolute; inset: 0; background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.05); }
 .province-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.6)); }
 .province-meta { position: relative; z-index: 2; padding: 14px; display: flex; flex-direction: column; height: 100%; justify-content: end; }

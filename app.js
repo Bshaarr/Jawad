@@ -166,7 +166,10 @@
     });
 
     modalGallery.innerHTML = '';
-    (p.images || []).slice(0, 6).forEach(function (src) {
+    var gallerySources = [];
+    if (p.coverImage) { gallerySources.push(p.coverImage); }
+    (p.images || []).forEach(function (s){ gallerySources.push(s); });
+    gallerySources.slice(0, 6).forEach(function (src) {
       const img = document.createElement('img');
       img.loading = 'lazy';
       img.decoding = 'async';
