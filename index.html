@@ -17,9 +17,9 @@
           <span class="brand-name">هنا سوريا</span>
         </a>
         <nav class="main-nav" aria-label="روابط الموقع">
-          <button id="navHomeBtn" class="nav-btn" type="button">الرئيسية</button>
-          <button id="navProvincesBtn" class="nav-btn" type="button" data-target="provinces">المحافظات</button>
-          <button id="navResourcesBtn" class="nav-btn" type="button" data-target="resources">روابط</button>
+          <a href="#home">الرئيسية</a>
+          <a href="#provinces">المحافظات</a>
+          <a href="#resources">روابط</a>
         </nav>
       </div>
     </header>
@@ -30,16 +30,15 @@
         <h1 class="site-title">هنا سوريا</h1>
         <p id="greeting" class="hero-greeting" aria-live="polite"></p>
         <p class="site-tagline">منصة فريدة للتعرّف إلى المحافظات السورية: تاريخها، معالمها، لهجاتها، وثقافتها.</p>
-        <button id="enterButton" class="cta">استكشاف المحافظات</button>
+        <a href="#provinces" class="cta">استكشاف المحافظات</a>
         <div class="hero-badges" aria-hidden="true">
           <img src="assets/logo/huna-syria-logo.svg" alt="" class="hero-badge" height="64">
         </div>
       </div>
     </main>
 
-    <section id="provinces" class="provinces-section panel" aria-hidden="true" aria-labelledby="provincesTitle">
+    <section id="provinces" class="provinces-section" aria-labelledby="provincesTitle">
       <div class="container">
-        <button class="panel-close-btn" type="button" aria-label="إغلاق لوحة المحافظات">×</button>
         <div class="section-header">
           <h2 id="provincesTitle">المحافظات السورية</h2>
           <div class="controls">
@@ -50,15 +49,14 @@
       </div>
     </section>
 
-    <section id="resources" class="resources-section panel" aria-hidden="true" aria-labelledby="resourcesTitle">
+    <section id="resources" class="resources-section" aria-labelledby="resourcesTitle">
       <div class="container">
-        <button class="panel-close-btn" type="button" aria-label="إغلاق لوحة الروابط">×</button>
         <h2 id="resourcesTitle">روابط مفيدة</h2>
         <div class="links-grid">
-          <a class="link-card" href="https://ar.wikipedia.org/wiki/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7" target="_blank" rel="noopener noreferrer">ويكيبيديا: سوريا</a>
-          <a class="link-card" href="https://whc.unesco.org/en/statesparties/sy/" target="_blank" rel="noopener noreferrer">اليونسكو: مواقع التراث العالمي في سوريا</a>
-          <a class="link-card" href="https://www.google.com/maps/place/Syria/" target="_blank" rel="noopener noreferrer">خرائط غوغل: سوريا</a>
-          <a class="link-card" href="https://www.britannica.com/place/Syria" target="_blank" rel="noopener noreferrer">Britannica: Syria</a>
+          <a class="link-card" href="https://ar.wikipedia.org/wiki/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7">ويكيبيديا: سوريا</a>
+          <a class="link-card" href="https://whc.unesco.org/en/statesparties/sy/">اليونسكو: مواقع التراث العالمي في سوريا</a>
+          <a class="link-card" href="https://www.google.com/maps/place/Syria/">خرائط غوغل: سوريا</a>
+          <a class="link-card" href="https://www.britannica.com/place/Syria">Britannica: Syria</a>
         </div>
       </div>
     </section>

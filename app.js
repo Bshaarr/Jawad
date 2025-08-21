@@ -32,16 +32,20 @@
     greetingEl.textContent = msg;
   }
 
-  const enterButton = document.getElementById('enterButton');
-  if (enterButton) {
-    enterButton.addEventListener('click', () => {
-      openPanel('provinces');
-      // ثبّت الرابط ومرّر إلى أعلى لوحة المحافظات
-      try { history.replaceState(null, '', '#provinces'); } catch (_) {}
-      var provincesEl = document.getElementById('provinces');
-      scrollSectionIntoView(provincesEl);
-    });
-  }
+  // تحسين سلوك الروابط الداخلية للتمرير السلس وتعويض الهيدر
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href');
+    if (id && id.length > 1) {
+      const target = document.querySelector(id);
+      if (target) {
+        e.preventDefault();
+        history.replaceState(null, '', id);
+        scrollSectionIntoView(target);
+      }
+    }
+  });
 
   // عرض المحافظات
   const provincesGrid = document.getElementById('provincesGrid');
@@ -194,90 +198,4 @@
       openModal(p);
     }
   }
-
-  // لوحات منبثقة للأقسام
-  const panels = {
-    provinces: document.getElementById('provinces'),
-    resources: document.getElementById('resources'),
-  };
-
-  function openPanel(key) {
-    Object.keys(panels).forEach(function (k) {
-      const el = panels[k];
-      if (!el) return;
-      const isTarget = (k === key);
-      el.classList.toggle('is-open', isTarget);
-      el.setAttribute('aria-hidden', String(!isTarget));
-      if (isTarget) {
-        // إعادة ضبط موضع اللوحة عند الفتح
-        try { el.scrollTop = 0; } catch (_) {}
-        // عند فتح لوحة المحافظات، أعِد ضبط البحث واعرض كل المحافظات
-        if (k === 'provinces') {
-          if (searchInput) { searchInput.value = ''; }
-          if (Array.isArray(window.provincesData)) { renderProvinces(window.provincesData); }
-          // اجعلها صفحة كاملة إن لزم
-          el.classList.add('full-page');
-          // مرّر إلى بداية اللوحة مع تعويض ارتفاع الرأس بعد إعادة الرسم
-          try {
-            requestAnimationFrame(function () { scrollSectionIntoView(el); });
-          } catch (_) { scrollSectionIntoView(el); }
-        }
-      }
-    });
-    document.body.style.overflow = '';
-  }
-
-  function closePanels() {
-    Object.keys(panels).forEach(function (k) {
-      const el = panels[k];
-      if (!el) return;
-      el.classList.remove('is-open');
-      el.classList.remove('full-page');
-      el.setAttribute('aria-hidden', 'true');
-    });
-    document.body.style.overflow = '';
-  }
-
-  function isPanelOpen(key) {
-    const el = panels[key];
-    if (!el) return false;
-    return el.classList.contains('is-open');
-  }
-
-  function togglePanel(key) {
-    if (isPanelOpen(key)) {
-      closePanels();
-    } else {
-      openPanel(key);
-    }
-  }
-
-  const navHomeBtn = document.getElementById('navHomeBtn');
-  const navProvincesBtn = document.getElementById('navProvincesBtn');
-  const navResourcesBtn = document.getElementById('navResourcesBtn');
-  if (navHomeBtn) navHomeBtn.addEventListener('click', function () {
-    closePanels();
-    try { history.replaceState(null, '', '#home'); } catch (_) {}
-    var homeEl = document.getElementById('home');
-    scrollSectionIntoView(homeEl);
-  });
-  if (navProvincesBtn) navProvincesBtn.addEventListener('click', function () {
-    openPanel('provinces');
-    try { history.replaceState(null, '', '#provinces'); } catch (_) {}
-    var provincesEl = document.getElementById('provinces');
-    scrollSectionIntoView(provincesEl);
-  });
-  if (navResourcesBtn) navResourcesBtn.addEventListener('click', function () { togglePanel('resources'); });
-
-  // أزرار إغلاق اللوحات
-  const panelCloseButtons = document.querySelectorAll('.panel .panel-close-btn');
-  panelCloseButtons.forEach(function (btn) { btn.addEventListener('click', closePanels); });
-
-  // إغلاق اللوحات بمفتاح Escape عندما لا تكون نافذة المحافظة مفتوحة
-  window.addEventListener('keydown', function (e) {
-    const modalHidden = !modal || modal.getAttribute('aria-hidden') === 'true';
-    if (e.key === 'Escape' && modalHidden) {
-      closePanels();
-    }
-  });
 })();
