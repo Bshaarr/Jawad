@@ -73,12 +73,12 @@ a:hover { color: var(--color-text); }
 .brand-logo { height: 40px; filter: drop-shadow(0 4px 10px rgba(0,0,0,.35)); }
 .brand-name { font-weight: 800; font-size: 20px; letter-spacing: .3px; }
 .main-nav { display: flex; gap: 18px; }
-.nav-btn, .main-nav a {
+.main-nav a {
   padding: 10px 14px; border-radius: 999px;
   transition: background .2s ease, color .2s ease;
   background: transparent; border: 1px solid rgba(255,255,255,.08); color: var(--color-text); cursor: pointer;
 }
-.nav-btn:hover, .main-nav a:hover {
+.main-nav a:hover {
   background: rgba(18, 167, 119, .12);
   color: var(--color-text);
 }
@@ -110,31 +110,7 @@ a:hover { color: var(--color-text); }
 
 /* الأقسام */
 section { padding: 54px 0; }
-.panel {
-  position: fixed; inset-inline: 0; bottom: 0; top: auto;
-  transform: translateY(110%);
-  background: linear-gradient(180deg, rgba(15,34,28,.98), rgba(15,34,28,1));
-  border-top: 1px solid rgba(255,255,255,.06);
-  box-shadow: 0 -20px 60px rgba(0,0,0,.55);
-  transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease;
-  opacity: 0;
-  z-index: 40;
-  max-height: 85vh;
-  overflow-y: auto;
-}
-.panel.is-open {
-  transform: translateY(0);
-  opacity: 1;
-}
-.panel.full-page {
-  position: static;
-  transform: none;
-  opacity: 1;
-  max-height: none;
-  overflow: visible;
-  box-shadow: none;
-  border-top: none;
-}
+/* أزلنا نمط اللوحات المنزلقة لنمط الروابط العادي */
 .panel .container { position: relative; padding-top: 24px; padding-bottom: 28px; }
 .panel-close-btn {
   position: absolute;
