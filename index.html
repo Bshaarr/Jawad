@@ -19,6 +19,9 @@
         <nav class="main-nav" aria-label="روابط الموقع">
           <a href="#home">الرئيسية</a>
           <a href="#provinces">المحافظات</a>
+          <a href="#universities">الجامعات</a>
+          <a href="#ministries">الوزارات</a>
+          <a href="#mosques">المساجد</a>
           <a href="#resources">روابط</a>
         </nav>
       </div>
@@ -58,6 +61,33 @@
           <a class="link-card" href="https://www.google.com/maps/place/Syria/">خرائط غوغل: سوريا</a>
           <a class="link-card" href="https://www.britannica.com/place/Syria">Britannica: Syria</a>
         </div>
+      </div>
+    </section>
+
+    <section id="universities" class="universities-section" aria-labelledby="universitiesTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="universitiesTitle">جامعات في سوريا</h2>
+        </div>
+        <div id="universitiesGrid" class="info-grid" aria-label="قائمة الجامعات"></div>
+      </div>
+    </section>
+
+    <section id="ministries" class="ministries-section" aria-labelledby="ministriesTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="ministriesTitle">وزارات سوريا</h2>
+        </div>
+        <div id="ministriesGrid" class="info-grid" aria-label="قائمة الوزارات"></div>
+      </div>
+    </section>
+
+    <section id="mosques" class="mosques-section" aria-labelledby="mosquesTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="mosquesTitle">مساجد بارزة في سوريا</h2>
+        </div>
+        <div id="mosquesGrid" class="info-grid" aria-label="قائمة المساجد"></div>
       </div>
     </section>
 
@@ -116,6 +146,7 @@
     </div>
 
     <script src="./data/provinces.js?v=2"></script>
+    <script src="./data/institutions.js?v=1"></script>
     <script src="./app.js?v=2"></script>
     <div id="toasts" class="toasts" aria-live="polite" aria-atomic="true"></div>
   </body>

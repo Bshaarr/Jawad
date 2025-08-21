@@ -291,4 +291,30 @@
 
   // أظهر إشعارًا بعد قليل من الدخول
   setTimeout(showQuizToast, 3000);
+  // أقسام الجامعات/الوزارات/المساجد
+  const universitiesGrid = document.getElementById('universitiesGrid');
+  const ministriesGrid = document.getElementById('ministriesGrid');
+  const mosquesGrid = document.getElementById('mosquesGrid');
+
+  function renderInfoGrid(targetEl, items, type) {
+    if (!targetEl || !Array.isArray(items)) return;
+    targetEl.innerHTML = '';
+    items.forEach(function (it) {
+      const card = document.createElement('article');
+      card.className = 'info-card';
+      const title = document.createElement('h3'); title.textContent = it.name; card.appendChild(title);
+      const meta = document.createElement('div'); meta.className = 'meta'; meta.textContent = [it.city, it.note].filter(Boolean).join(' • '); card.appendChild(meta);
+      const actions = document.createElement('div'); actions.className = 'actions';
+      if (it.site) { const a = document.createElement('a'); a.href = it.site; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'الموقع'; actions.appendChild(a); }
+      if (it.map) { const a = document.createElement('a'); a.href = it.map; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'الخريطة'; actions.appendChild(a); }
+      card.appendChild(actions);
+      targetEl.appendChild(card);
+    });
+  }
+
+  if (window.institutionsData) {
+    renderInfoGrid(universitiesGrid, window.institutionsData.universities, 'univ');
+    renderInfoGrid(ministriesGrid, window.institutionsData.ministries, 'min');
+    renderInfoGrid(mosquesGrid, window.institutionsData.mosques, 'mosque');
+  }
 })();

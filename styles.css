@@ -187,16 +187,16 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(2px); }
 .modal-dialog {
   position: absolute; inset: 0; margin: 0;
-  display: grid; grid-template-rows: auto 1fr auto;
+  display: grid; grid-template-rows: auto 1fr; /* الهيدر + المحتوى */
   background: linear-gradient(180deg, rgba(15,34,28,1), rgba(15,34,28,.98));
   border: none;
 }
 .modal-close { position: absolute; top: 8px; inset-inline-end: 12px; background: transparent; color: var(--color-text); border: none; font-size: 28px; cursor: pointer; }
-.modal-content { padding: 18px 18px 26px; }
-.modal-header { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 10px; display:flex; align-items:center; gap:10px; }
+.modal-content { display: grid; grid-template-rows: auto 1fr auto; padding: 12px 12px 14px; min-height: 0; }
+.modal-header { padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 6px; display:flex; align-items:center; gap:10px; }
 .modal-title { margin: 0; font-size: 24px; font-weight: 800; color: var(--color-accent); text-shadow: 0 2px 10px rgba(194,163,91,.15); }
-.modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; overflow: auto; padding-bottom: 8px; }
-.modal-footer { margin-top: 16px; display: flex; justify-content: flex-end; }
+.modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; overflow: auto; padding: 8px 6px 28px; min-height: 0; }
+.modal-footer { margin-top: 6px; display: flex; justify-content: flex-end; }
 .btn { padding: 10px 14px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
 .btn-outline { background: rgba(18,167,119,.14); color: var(--color-text); border: 1px solid rgba(18,167,119,.35); }
 .btn-outline:hover { background: rgba(18,167,119,.22); }
@@ -234,6 +234,15 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .gold-card h4 { color: var(--color-accent); margin-top: 0; }
 .gold-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .gold-list li { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 10px 12px; border-radius: 10px; }
+
+/* شبكات معلومات عامة (جامعات/وزارات/مساجد) */
+.info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.info-card { background: var(--color-surface); border: 1px solid rgba(194,163,91,.2); border-radius: 14px; padding: 14px; box-shadow: var(--shadow-1); }
+.info-card h3 { margin: 0 0 6px; font-size: 18px; color: var(--color-accent); }
+.info-card .meta { color: var(--color-text-muted); font-size: 13px; margin-bottom: 8px; }
+.info-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.info-card .actions a { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); padding: 8px 10px; border-radius: 10px; font-size: 12px; }
+.info-card .actions a:hover { background: rgba(194,163,91,.18); border-color: rgba(194,163,91,.4); }
 
 /* تذييل */
 .site-footer { border-top: 1px solid rgba(255,255,255,.06); padding: 22px 0; background: rgba(6,18,14,.6); }
