@@ -198,9 +198,9 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .modal-header { padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 6px; display:flex; align-items:center; gap:10px; }
 .modal-title { margin: 0; font-size: 24px; font-weight: 800; color: var(--color-accent); text-shadow: 0 2px 10px rgba(194,163,91,.15); }
 .modal-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; overflow: auto; padding: 8px 10px calc(64px + env(safe-area-inset-bottom, 0px)); min-height: 0; }
-.modal-body p, .modal-body li { max-width: 58ch; line-height: 1.95; overflow-wrap: anywhere; }
-.modal-body h4 { max-width: 58ch; }
-.links-grid.small a { max-width: 58ch; display: inline-block; }
+.modal-body p, .modal-body li { max-width: 34ch; line-height: 1.95; overflow-wrap: anywhere; }
+.modal-body h4 { max-width: 34ch; }
+.links-grid.small a { max-width: 34ch; display: inline-block; }
 .modal-sections { max-width: 80ch; }
 .modal-footer { position: sticky; bottom: 0; display: flex; justify-content: flex-end; gap: 8px; padding-top: 8px; background: linear-gradient(180deg, rgba(15,34,28,.6), rgba(15,34,28,1)); border-top: 1px solid rgba(255,255,255,.06); }
 .btn { padding: 10px 14px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
@@ -237,15 +237,15 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 
 /* تقصير فقرة لمحة عامة إلى 3 أسطر مع التفاف أنيق */
 #modalDescription {
-  max-width: 52ch;
+  max-width: 32ch;
   line-height: 1.95;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 7;
 }
 @supports not (-webkit-line-clamp: 3) {
-  #modalDescription { max-width: 48ch; }
+  #modalDescription { max-width: 30ch; }
 }
 
 /* بطاقات ذهبية لأقسام التفاصيل */
@@ -253,6 +253,23 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .gold-card h4 { color: var(--color-accent); margin-top: 0; }
 .gold-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .gold-list li { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 10px 12px; border-radius: 10px; }
+
+/* حركات انتقال لفتح/إغلاق صفحة المعلومات */
+@keyframes modalEnter {
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes modalExit {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(12px) scale(.98); }
+}
+@keyframes backdropIn { from { opacity: 0; } to { opacity: .75; } }
+@keyframes backdropOut { from { opacity: .75; } to { opacity: 0; } }
+
+.modal.is-entering .modal-dialog { animation: modalEnter 360ms cubic-bezier(.2,.8,.2,1) both; will-change: transform, opacity; }
+.modal.is-entering .modal-backdrop { animation: backdropIn 300ms ease both; }
+.modal.is-leaving .modal-dialog { animation: modalExit 260ms ease both; }
+.modal.is-leaving .modal-backdrop { animation: backdropOut 240ms ease both; }
 
 /* شبكات معلومات عامة (جامعات/وزارات/مساجد) */
 .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }

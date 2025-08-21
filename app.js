@@ -147,6 +147,8 @@
 
   function openModal(p) {
     if (!modal) return;
+    modal.classList.remove('is-leaving');
+    modal.classList.add('is-entering');
     modalTitle.textContent = p.name;
     modalDescription.textContent = p.description || '';
     modalDialect.textContent = p.dialect || '';
@@ -204,11 +206,15 @@
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     currentProvinceId = p.id;
+    // إزالة فئة الحركة بعد الاكتمال
+    setTimeout(function(){ if (modal) modal.classList.remove('is-entering'); }, 400);
   }
 
   function closeModal() {
     if (!modal) return;
-    modal.setAttribute('aria-hidden', 'true');
+    modal.classList.remove('is-entering');
+    modal.classList.add('is-leaving');
+    setTimeout(function(){ if (modal) { modal.classList.remove('is-leaving'); modal.setAttribute('aria-hidden', 'true'); } }, 260);
     document.body.style.overflow = '';
     currentProvinceId = null;
   }
