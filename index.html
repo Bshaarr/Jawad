@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>هنا سوريا | بوابتك للمحافظات السورية</title>
+    <meta name="description" content="هنا سوريا - منصة لاستكشاف المحافظات السورية: التاريخ، الثقافة، اللهجات، المعالم، الصور والروابط المفيدة.">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="/assets/logo/huna-syria-logo-watermark.svg" as="image" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#home" aria-label="الانتقال إلى المقدمة">
+          <img src="/assets/logo/huna-syria-logo-mono-light.svg" alt="شعار هنا سوريا" class="brand-logo" height="48" width="auto">
+          <span class="brand-name">هنا سوريا</span>
+        </a>
+        <nav class="main-nav" aria-label="روابط الموقع">
+          <a href="#home">الرئيسية</a>
+          <a href="#provinces">المحافظات</a>
+          <a href="#resources">روابط</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="home" class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1 class="site-title">هنا سوريا</h1>
+        <p id="greeting" class="hero-greeting" aria-live="polite"></p>
+        <p class="site-tagline">منصة فريدة للتعرّف إلى المحافظات السورية: تاريخها، معالمها، لهجاتها، وثقافتها.</p>
+        <button id="enterButton" class="cta">استكشاف المحافظات</button>
+        <div class="hero-badges" aria-hidden="true">
+          <img src="/assets/logo/huna-syria-logo.svg" alt="" class="hero-badge" height="64">
+        </div>
+      </div>
+    </main>
+
+    <section id="provinces" class="provinces-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>المحافظات السورية</h2>
+          <div class="controls">
+            <input id="searchInput" type="search" placeholder="ابحث عن محافظة أو معلم أو كلمة مفتاحية" aria-label="بحث">
+          </div>
+        </div>
+        <div id="provincesGrid" class="provinces-grid" role="list" aria-label="قائمة المحافظات"></div>
+      </div>
+    </section>
+
+    <section id="resources" class="resources-section">
+      <div class="container">
+        <h2>روابط مفيدة</h2>
+        <div class="links-grid">
+          <a class="link-card" href="https://ar.wikipedia.org/wiki/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7" target="_blank" rel="noopener noreferrer">ويكيبيديا: سوريا</a>
+          <a class="link-card" href="https://whc.unesco.org/en/statesparties/sy/" target="_blank" rel="noopener noreferrer">اليونسكو: مواقع التراث العالمي في سوريا</a>
+          <a class="link-card" href="https://www.google.com/maps/place/Syria/" target="_blank" rel="noopener noreferrer">خرائط غوغل: سوريا</a>
+          <a class="link-card" href="https://www.britannica.com/place/Syria" target="_blank" rel="noopener noreferrer">Britannica: Syria</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> هنا سوريا. جميع الحقوق محفوظة.</p>
+        <p class="muted">تم تصميم الهوية البصرية واللوغو خصيصًا لهذا الموقع.</p>
+      </div>
+    </footer>
+
+    <!-- نافذة معلومات المحافظة -->
+    <div id="provinceModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" data-close aria-label="إغلاق">×</button>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 id="modalTitle" class="modal-title"></h3>
+          </div>
+          <div class="modal-body">
+            <div class="modal-gallery" id="modalGallery" aria-label="معرض صور"></div>
+            <div class="modal-sections">
+              <section>
+                <h4>لمحة عامة</h4>
+                <p id="modalDescription"></p>
+              </section>
+              <section>
+                <h4>اللهجة</h4>
+                <p id="modalDialect"></p>
+              </section>
+              <section>
+                <h4>الاقتصاد</h4>
+                <p id="modalEconomy"></p>
+              </section>
+              <section>
+                <h4>أشهر الأطباق</h4>
+                <ul id="modalCuisine" class="pill-list"></ul>
+              </section>
+              <section>
+                <h4>أبرز المعالم</h4>
+                <ul id="modalAttractions" class="pill-list"></ul>
+              </section>
+              <section>
+                <h4>روابط</h4>
+                <div id="modalLinks" class="links-grid small"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./data/provinces.js"></script>
+    <script src="./app.js"></script>
+  </body>
+  </html>
+
