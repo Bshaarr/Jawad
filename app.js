@@ -142,6 +142,55 @@
   const modalCuisine = document.getElementById('modalCuisine');
   const modalAttractions = document.getElementById('modalAttractions');
   const modalLinks = document.getElementById('modalLinks');
+  // صور احتياطية حسب المحافظة (روابط خارجية موثوقة)
+  const provinceFallbackImagesMap = {
+    'damascus': [
+      'https://upload.wikimedia.org/wikipedia/commons/6/6c/Umayyad_Mosque_Courtyard.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/1/1b/Damascus_Old_City_-_Souq_Al-Hamidiyeh.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/2/22/Az-Zahir_Baybars_Mausoleum_Damascus.jpg'
+    ],
+    'rif-dimashq': [
+      'https://upload.wikimedia.org/wikipedia/commons/5/53/Maaloula_2010.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/4/41/Bloudan_Al-Hamra_Street.jpg'
+    ],
+    'aleppo': [
+      'https://upload.wikimedia.org/wikipedia/commons/c/c2/Citadel_of_Aleppo_2016.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/3/33/Aleppo_Souk.jpg'
+    ],
+    'homs': [
+      'https://upload.wikimedia.org/wikipedia/commons/6/6a/Krak_des_Chevaliers_2009.jpg'
+    ],
+    'hama': [
+      'https://upload.wikimedia.org/wikipedia/commons/6/6a/Norias_in_Hama.jpg'
+    ],
+    'latakia': [
+      'https://upload.wikimedia.org/wikipedia/commons/3/3d/Latakia_coast.jpg'
+    ],
+    'tartus': [
+      'https://upload.wikimedia.org/wikipedia/commons/7/7b/Arwad_Island.jpg'
+    ],
+    'idlib': [
+      'https://upload.wikimedia.org/wikipedia/commons/6/6a/Dead_Cities_Syria.jpg'
+    ],
+    'deir-ezzor': [
+      'https://upload.wikimedia.org/wikipedia/commons/c/c4/Deir_ez-Zor_Suspension_Bridge.jpg'
+    ],
+    'hasakah': [
+      'https://upload.wikimedia.org/wikipedia/commons/2/2b/Khabur_River.jpg'
+    ],
+    'raqqa': [
+      'https://upload.wikimedia.org/wikipedia/commons/4/46/Raqqa_River_Euphrates.jpg'
+    ],
+    'daraa': [
+      'https://upload.wikimedia.org/wikipedia/commons/d/d0/Bosra_Roman_Theatre_02.jpg'
+    ],
+    'sweida': [
+      'https://upload.wikimedia.org/wikipedia/commons/3/32/Shahba_museum.jpg'
+    ],
+    'quneitra': [
+      'https://upload.wikimedia.org/wikipedia/commons/6/63/Masada_Lake.jpg'
+    ]
+  };
   // أقسام محسنة
   let extraSectionsContainer;
 
@@ -165,8 +214,19 @@
     });
 
     modalGallery.innerHTML = '';
-    (p.images || []).slice(0, 6).forEach(function (src) {
-      const img = document.createElement('img'); img.loading = 'lazy'; img.src = src; img.alt = p.name; modalGallery.appendChild(img);
+    const fallbacks = provinceFallbackImagesMap[p.id] || [];
+    (p.images || []).slice(0, 6).forEach(function (src, idx) {
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.alt = p.name;
+      img.src = src;
+      img.onerror = function () {
+        img.onerror = null;
+        const fb = fallbacks[idx] || fallbacks[0];
+        if (fb) img.src = fb;
+      };
+      modalGallery.appendChild(img);
     });
 
     modalLinks.innerHTML = '';
