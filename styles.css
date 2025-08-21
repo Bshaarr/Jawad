@@ -235,6 +235,19 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
 .pill-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .pill-list li { background: rgba(18,167,119,.16); border: 1px solid rgba(18,167,119,.3); color: #cfeee3; padding: 6px 10px; border-radius: 999px; font-size: 12px; }
 
+/* تقصير فقرة لمحة عامة إلى 3 أسطر مع التفاف أنيق */
+#modalDescription {
+  max-width: 52ch;
+  line-height: 1.95;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+@supports not (-webkit-line-clamp: 3) {
+  #modalDescription { max-width: 48ch; }
+}
+
 /* بطاقات ذهبية لأقسام التفاصيل */
 .gold-card { background: linear-gradient(180deg, rgba(16,40,33,.9), rgba(16,40,33,.98)); border: 1px solid rgba(194,163,91,.28); border-radius: 14px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
 .gold-card h4 { color: var(--color-accent); margin-top: 0; }
