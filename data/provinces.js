@@ -8,6 +8,7 @@ window.provincesData = [
     economy: 'تاريخيًا مركزًا تجاريًا وخدميًا وثقافيًا، وتضم نشاطًا حرفيًا وسياحيًا مهمًا.',
     cuisine: ['محاشي', 'كبة سفرجلية', 'فتات', 'هريسة شامية'],
     attractions: ['الجامع الأموي', 'سوق الحميدية', 'قصر العظم', 'البيت الشامي'],
+    coverImage: 'assets/images/damascus/cover.svg',
     images: [
       'assets/images/damascus/umayyad-mosque.jpg',
       'assets/images/damascus/souq-al-hamidiyeh.jpg',
