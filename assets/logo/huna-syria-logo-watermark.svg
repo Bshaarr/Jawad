@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="هنا سوريا - علامة مائية">
+  <defs>
+    <linearGradient id="wmGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0e3a2f"/>
+      <stop offset="100%" stop-color="#1f6f57"/>
+    </linearGradient>
+  </defs>
+
+  <!-- خلفية شفافة بالكامل -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- شعار نصي كبير شبه شفاف يستخدم كعلامة مائية -->
+  <g opacity="0.08">
+    <text x="50%" y="45%" text-anchor="middle" direction="rtl"
+          font-family="'Tajawal','Cairo','Noto Kufi Arabic','Amiri','Segoe UI',system-ui,sans-serif"
+          font-weight="900" font-size="220" fill="url(#wmGreen)" letter-spacing="2">
+      هنا سوريا
+    </text>
+    <text x="50%" y="62%" text-anchor="middle" direction="rtl"
+          font-family="'Tajawal','Cairo','Noto Kufi Arabic','Amiri','Segoe UI',system-ui,sans-serif"
+          font-weight="600" font-size="48" fill="#b8d9cc" letter-spacing="1">
+      بوابةٌ إلى تاريخها وثقافتها ومحافظاتها
+    </text>
+  </g>
+</svg>
+
