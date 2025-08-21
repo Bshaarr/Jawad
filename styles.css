@@ -126,6 +126,15 @@ section { padding: 54px 0; }
   transform: translateY(0);
   opacity: 1;
 }
+.panel.full-page {
+  position: static;
+  transform: none;
+  opacity: 1;
+  max-height: none;
+  overflow: visible;
+  box-shadow: none;
+  border-top: none;
+}
 .panel .container { position: relative; padding-top: 24px; padding-bottom: 28px; }
 .panel-close-btn {
   position: absolute;
