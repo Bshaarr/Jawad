@@ -182,6 +182,8 @@
           if (Array.isArray(window.provincesData)) { renderProvinces(window.provincesData); }
           // اجعلها صفحة كاملة إن لزم
           el.classList.add('full-page');
+          // تأكد من ظهور اللوحة للمستخدم فورًا
+          try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
         }
       }
     });
