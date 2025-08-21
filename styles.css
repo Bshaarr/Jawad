@@ -125,6 +125,20 @@ section { padding: 54px 0; }
   opacity: 1;
 }
 .panel .container { padding-top: 24px; padding-bottom: 28px; }
+.panel-close-btn {
+  position: absolute;
+  inset-inline-end: 18px;
+  inset-block-start: 14px;
+  background: rgba(18,167,119,.14);
+  color: var(--color-text);
+  border: 1px solid rgba(18,167,119,.35);
+  border-radius: 12px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  font-size: 22px; line-height: 1; cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+.panel-close-btn:hover { background: rgba(18,167,119,.22); }
 .section-header { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .section-header h2 { margin: 0; font-size: 26px; }
 .controls { display: flex; align-items: center; gap: 10px; }

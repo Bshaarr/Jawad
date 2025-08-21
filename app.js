@@ -212,5 +212,17 @@
   if (navHomeBtn) navHomeBtn.addEventListener('click', closePanels);
   if (navProvincesBtn) navProvincesBtn.addEventListener('click', function () { togglePanel('provinces'); });
   if (navResourcesBtn) navResourcesBtn.addEventListener('click', function () { togglePanel('resources'); });
+
+  // أزرار إغلاق اللوحات
+  const panelCloseButtons = document.querySelectorAll('.panel .panel-close-btn');
+  panelCloseButtons.forEach(function (btn) { btn.addEventListener('click', closePanels); });
+
+  // إغلاق اللوحات بمفتاح Escape عندما لا تكون نافذة المحافظة مفتوحة
+  window.addEventListener('keydown', function (e) {
+    const modalHidden = !modal || modal.getAttribute('aria-hidden') === 'true';
+    if (e.key === 'Escape' && modalHidden) {
+      closePanels();
+    }
+  });
 })();
 
