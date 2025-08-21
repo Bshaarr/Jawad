@@ -242,7 +242,7 @@ input[type="search"]:focus { box-shadow: 0 0 0 3px rgba(18,167,119,.25); border-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 7;
 }
 @supports not (-webkit-line-clamp: 3) {
   #modalDescription { max-width: 30ch; }
