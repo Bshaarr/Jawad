@@ -21,8 +21,7 @@
   const enterButton = document.getElementById('enterButton');
   if (enterButton) {
     enterButton.addEventListener('click', () => {
-      const target = document.getElementById('provinces');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      openPanel('provinces');
     });
   }
 
@@ -162,5 +161,67 @@
     if (btn) btn.addEventListener('click', closeModal);
     window.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
   }
+  // لوحات منبثقة للأقسام
+  const panels = {
+    provinces: document.getElementById('provinces'),
+    resources: document.getElementById('resources'),
+  };
+
+  function openPanel(key) {
+    Object.keys(panels).forEach(function (k) {
+      const el = panels[k];
+      if (!el) return;
+      const isTarget = (k === key);
+      el.classList.toggle('is-open', isTarget);
+      el.setAttribute('aria-hidden', String(!isTarget));
+      if (isTarget) {
+        el.scrollTop = 0;
+      }
+    });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePanels() {
+    Object.keys(panels).forEach(function (k) {
+      const el = panels[k];
+      if (!el) return;
+      el.classList.remove('is-open');
+      el.setAttribute('aria-hidden', 'true');
+    });
+    document.body.style.overflow = '';
+  }
+
+  function isPanelOpen(key) {
+    const el = panels[key];
+    if (!el) return false;
+    return el.classList.contains('is-open');
+  }
+
+  function togglePanel(key) {
+    if (isPanelOpen(key)) {
+      closePanels();
+    } else {
+      openPanel(key);
+    }
+  }
+
+  const navHomeBtn = document.getElementById('navHomeBtn');
+  const navProvincesBtn = document.getElementById('navProvincesBtn');
+  const navResourcesBtn = document.getElementById('navResourcesBtn');
+  if (navHomeBtn) navHomeBtn.addEventListener('click', closePanels);
+  if (navProvincesBtn) navProvincesBtn.addEventListener('click', function () { togglePanel('provinces'); });
+  if (navResourcesBtn) navResourcesBtn.addEventListener('click', function () { togglePanel('resources'); });
+
+  // أزرار إغلاق اللوحات
+  const panelCloseButtons = document.querySelectorAll('.panel .panel-close-btn');
+  panelCloseButtons.forEach(function (btn) { btn.addEventListener('click', closePanels); });
+
+  // إغلاق اللوحات بمفتاح Escape عندما لا تكون نافذة المحافظة مفتوحة
+  window.addEventListener('keydown', function (e) {
+    const modalHidden = !modal || modal.getAttribute('aria-hidden') === 'true';
+    if (e.key === 'Escape' && modalHidden) {
+      closePanels();
+    }
+  });
 })();
 

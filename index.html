@@ -7,7 +7,7 @@
     <meta name="description" content="هنا سوريا - منصة لاستكشاف المحافظات السورية: التاريخ، الثقافة، اللهجات، المعالم، الصور والروابط المفيدة.">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="preload" href="assets/logo/huna-syria-logo-watermark.svg" as="image" type="image/svg+xml">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css?v=2">
   </head>
   <body>
     <header class="site-header">
@@ -17,9 +17,9 @@
           <span class="brand-name">هنا سوريا</span>
         </a>
         <nav class="main-nav" aria-label="روابط الموقع">
-          <a href="#home">الرئيسية</a>
-          <a href="#provinces">المحافظات</a>
-          <a href="#resources">روابط</a>
+          <button id="navHomeBtn" class="nav-btn" type="button">الرئيسية</button>
+          <button id="navProvincesBtn" class="nav-btn" type="button" data-target="provinces">المحافظات</button>
+          <button id="navResourcesBtn" class="nav-btn" type="button" data-target="resources">روابط</button>
         </nav>
       </div>
     </header>
@@ -37,10 +37,11 @@
       </div>
     </main>
 
-    <section id="provinces" class="provinces-section">
+    <section id="provinces" class="provinces-section panel" aria-hidden="true" aria-labelledby="provincesTitle">
       <div class="container">
+        <button class="panel-close-btn" type="button" aria-label="إغلاق لوحة المحافظات">×</button>
         <div class="section-header">
-          <h2>المحافظات السورية</h2>
+          <h2 id="provincesTitle">المحافظات السورية</h2>
           <div class="controls">
             <input id="searchInput" type="search" placeholder="ابحث عن محافظة أو معلم أو كلمة مفتاحية" aria-label="بحث">
           </div>
@@ -49,9 +50,10 @@
       </div>
     </section>
 
-    <section id="resources" class="resources-section">
+    <section id="resources" class="resources-section panel" aria-hidden="true" aria-labelledby="resourcesTitle">
       <div class="container">
-        <h2>روابط مفيدة</h2>
+        <button class="panel-close-btn" type="button" aria-label="إغلاق لوحة الروابط">×</button>
+        <h2 id="resourcesTitle">روابط مفيدة</h2>
         <div class="links-grid">
           <a class="link-card" href="https://ar.wikipedia.org/wiki/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7" target="_blank" rel="noopener noreferrer">ويكيبيديا: سوريا</a>
           <a class="link-card" href="https://whc.unesco.org/en/statesparties/sy/" target="_blank" rel="noopener noreferrer">اليونسكو: مواقع التراث العالمي في سوريا</a>
@@ -68,6 +70,7 @@
       </div>
     </footer>
 
+    <a class="dev-mark" href="#" aria-label="مطوّر الموقع">م. بشار عنيزان</a>
     <!-- نافذة معلومات المحافظة -->
     <div id="provinceModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
       <div class="modal-backdrop" data-close></div>
@@ -110,8 +113,8 @@
       </div>
     </div>
 
-    <script src="./data/provinces.js"></script>
-    <script src="./app.js"></script>
+    <script src="./data/provinces.js?v=2"></script>
+    <script src="./app.js?v=2"></script>
   </body>
   </html>
 
