@@ -215,7 +215,8 @@
 
     modalGallery.innerHTML = '';
     const fallbacks = provinceFallbackImagesMap[p.id] || [];
-    (p.images || []).slice(0, 6).forEach(function (src, idx) {
+    const sources = [...fallbacks, ...((p.images || []))];
+    sources.slice(0, 6).forEach(function (src, idx) {
       const img = document.createElement('img');
       img.loading = 'lazy';
       img.decoding = 'async';
