@@ -29,7 +29,7 @@ window.provincesData = [
   {
     id: 'rif-dimashq',
     name: 'ريف دمشق',
-    coverImage: 'assets/images/rif-dimashq/maaloula.jpg',
+    coverImage: 'assets/images/rif-dimashq/cover.svg',
     description: 'تحيط بالعاصمة، وتضم سهول الغوطة وسلاسل جبلية وبلدات تاريخية ذات طابع ريفي ومدني.',
     dialect: 'لهجة شامية ريفية متقاربة من لهجة دمشق مع فروق بسيطة في القافية والإطالة.',
     economy: 'زراعة البساتين والفاكهة، وبعض الصناعات الصغيرة والتجارة والخدمات.',
@@ -53,7 +53,7 @@ window.provincesData = [
   {
     id: 'aleppo',
     name: 'حلب',
-    coverImage: 'assets/images/aleppo/aleppo-citadel.jpg',
+    coverImage: 'assets/images/aleppo/cover.svg',
     description: 'مدينة صناعية وتاريخية كبرى، عُرفت بقلعتها وأسواقها المسقوفة وتراثها الموسيقي والطبخي.',
     dialect: 'لهجة حلبية مميزة بوضوح مخارج الحروف وبعض المفردات الخاصة مثل: "إيمتا"، "شو عم تعمل".',
     economy: 'صناعة النسيج والغذاء، التجارة والأسواق التقليدية، وحرف يدوية.',
@@ -78,7 +78,7 @@ window.provincesData = [
   {
     id: 'homs',
     name: 'حمص',
-    coverImage: 'assets/images/homs/krak-des-chevaliers.jpg',
+    coverImage: 'assets/images/homs/cover.svg',
     description: 'تقع على نهر العاصي؛ مركز تاريخي بين الشمال والجنوب، وتشتهر بتنوعها الثقافي.',
     dialect: 'لهجة قريبة من الحلبية والشامية مع سمات محلية.',
     economy: 'صناعات غذائية ونسيجية، تجارة محلية، وزراعة محيطة.',
@@ -101,7 +101,7 @@ window.provincesData = [
   {
     id: 'hama',
     name: 'حماة',
-    coverImage: 'assets/images/hama/norias-hama.jpg',
+    coverImage: 'assets/images/hama/cover.svg',
     description: 'مدينة النواعير على نهر العاصي، ذات طابع تراثي وعمارة تقليدية.',
     dialect: 'لهجة قريبة من حمص مع مفردات محلية.',
     economy: 'زراعة وصناعات غذائية وحرف تقليدية.',
@@ -123,7 +123,7 @@ window.provincesData = [
   {
     id: 'latakia',
     name: 'اللاذقية',
-    coverImage: 'assets/images/latakia/latakia-coast.jpg',
+    coverImage: 'assets/images/latakia/cover.svg',
     description: 'مدينة ساحلية على المتوسط، ميناء رئيسي ومقصد سياحي صيفي.',
     dialect: 'لهجة ساحلية مائلة للمدّ والإطالة بنبرة رخوة.',
     economy: 'مرفأ، تجارة، سياحة، زراعة حمضيات وتبغ.',
@@ -145,7 +145,7 @@ window.provincesData = [
   {
     id: 'tartus',
     name: 'طرطوس',
-    coverImage: 'assets/images/tartus/arwad-island.jpg',
+    coverImage: 'assets/images/tartus/cover.svg',
     description: 'مدينة ساحلية ومركز زراعي، قريبة من جزر أرواد الأثرية.',
     dialect: 'ساحلية قريبة من لهجة اللاذقية.',
     economy: 'زراعة وتجارة وسياحة بحرية.',
@@ -167,7 +167,7 @@ window.provincesData = [
   {
     id: 'idlib',
     name: 'إدلب',
-    coverImage: 'assets/images/idlib/dead-cities.jpg',
+    coverImage: 'assets/images/idlib/cover.svg',
     description: 'شمال غربي سوريا؛ أرض زراعية خصبة ومعالم أثرية مثل البازلت والمدن المنسية.',
     dialect: 'قريبة من الحلبية مع سمات ريفية.',
     economy: 'زراعة زيتون ومحاصيل متنوعة وحرف.',
@@ -189,7 +189,7 @@ window.provincesData = [
   {
     id: 'deir-ezzor',
     name: 'دير الزور',
-    coverImage: 'assets/images/deir-ezzor/deir-bridge.jpg',
+    coverImage: 'assets/images/deir-ezzor/cover.svg',
     description: 'مدينة الفرات والبادية؛ جسور على النهر وتراث بدوي وزراعي.',
     dialect: 'لهجة جزراوية بسمات بدوية وقافية واضحة.',
     economy: 'زراعة القطن والقمح والتمور ونشاط نفطي سابق.',
@@ -211,7 +211,7 @@ window.provincesData = [
   {
     id: 'hasakah',
     name: 'الحسكة',
-    coverImage: 'assets/images/hasakah/khabur-river.jpg',
+    coverImage: 'assets/images/hasakah/cover.svg',
     description: 'شمال شرق سوريا؛ محافظة زراعية متعددة الثقافات على ضفاف الخابور.',
     dialect: 'جزراوية مع تأثر بلهجات كردية وسريانية وعربية بدوية.',
     economy: 'زراعة القمح والشعير والقطن وتربية المواشي.',
@@ -233,7 +233,7 @@ window.provincesData = [
   {
     id: 'raqqa',
     name: 'الرقة',
-    coverImage: 'assets/images/raqqa/raqqa-euphrates.jpg',
+    coverImage: 'assets/images/raqqa/cover.svg',
     description: 'مدينة على الفرات؛ إرث تاريخي في الصنوبريّة والقصور العباسية القديمة.',
     dialect: 'جزراوية قريبة من دير الزور والحسكة.',
     economy: 'زراعة قطن وحبوب وثروة حيوانية.',
@@ -255,7 +255,7 @@ window.provincesData = [
   {
     id: 'daraa',
     name: 'درعا',
-    coverImage: 'assets/images/daraa/bosra-roman-theatre.jpg',
+    coverImage: 'assets/images/daraa/cover.svg',
     description: 'جنوب سوريا؛ بصرى الشام الأثرية وسهول حوران الزراعية.',
     dialect: 'لهجة قريبة من الأردن وفلسطين بسمات حورانية.',
     economy: 'زراعة قمح وخضار وفواكه، تجارة محلية.',
@@ -278,7 +278,7 @@ window.provincesData = [
   {
     id: 'sweida',
     name: 'السويداء',
-    coverImage: 'assets/images/sweida/shahba-museum.jpg',
+    coverImage: 'assets/images/sweida/cover.svg',
     description: 'جبل العرب؛ طبيعة بركانية وكروم عنب وتقاليد ضيافة عريقة.',
     dialect: 'لهجة جبلية فصيحة الميل، مفردات قريبة من الشامية والبدوية.',
     economy: 'زراعة العنب والتفاح والكرز وحِرَف محلية.',
@@ -300,7 +300,7 @@ window.provincesData = [
   {
     id: 'quneitra',
     name: 'القنيطرة',
-    coverImage: 'assets/images/quneitra/masada-lake.jpg',
+    coverImage: 'assets/images/quneitra/cover.svg',
     description: 'جولان سوري؛ طبيعة هضبية ومياه وينابيع ومعالم تاريخية.',
     dialect: 'قريبة من لهجات الجنوب السوري.',
     economy: 'زراعة وتربية ماشية ونشاط سياحي بيئي محدود.',
